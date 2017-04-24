@@ -1,0 +1,9 @@
+.user-data-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.user-data-item {
+    margin-right: 20px;
+}

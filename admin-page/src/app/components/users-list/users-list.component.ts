@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/user';
+import { users } from '../../data/users';
 
 @Component({
   selector: 'app-users-list',
@@ -6,28 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
+  public users;
 
-  public users = [
-        {
-            name: 'User 1',
-            isActive: true
-        },
-        {
-            name: 'User 2',
-            isActive: true
-        },
-        {
-            name: 'User 3',
-            isActive: true
-        },
-        {
-            name: 'User 4',
-            isActive: false
-        }
-  ];
   constructor() { }
 
   ngOnInit() {
+    this.users = users;
   }
 
+  toggleUserStatus(userId) {
+    const selectedUser = this.users
+    .find(user => {
+      return user.id === userId;
+    });
+
+    selectedUser.isActive = !selectedUser.isActive;
+  }
 }

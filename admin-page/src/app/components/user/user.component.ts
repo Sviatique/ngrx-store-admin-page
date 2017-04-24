@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -6,11 +6,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  @Output() onToggleUserStatus = new EventEmitter<number>();
+  @Input() user;
 
-  @Input() data;
   constructor() { }
 
   ngOnInit() {
   }
 
+  toggleUserStatus(userId) {
+    this.onToggleUserStatus.emit(userId);
+  }
 }
