@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  @Output() onToggleUserStatus = new EventEmitter<number>();
+  @Output() onUserStatusToggle = new EventEmitter<number>();
   @Input() user;
 
   constructor() { }
@@ -15,6 +15,6 @@ export class UserComponent implements OnInit {
   }
 
   toggleUserStatus(userId) {
-    this.onToggleUserStatus.emit(userId);
+    this.onUserStatusToggle.emit(userId);
   }
 }

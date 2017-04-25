@@ -1,6 +1,6 @@
 import { User } from '../models/user';
 import * as userActions from '../actions/user';
-import { createSelector } from 'reselect';
+import { users } from '../data/users';
 
 export interface State {
     ids: Array<number>;
@@ -8,17 +8,25 @@ export interface State {
 }
 
 export const initialState: State = {
-    ids: [],
-    entities: {}
+    ids: users.map(user => user.id),
+    entities: users.reduce((entities, user) => {
+        entities[user.id] = user;
+        return entities;
+    }, {})
 };
 
 export function reducer(state = initialState, action: userActions.Actions) {
     switch(action.type) {
         case userActions.TOGGLE_STATUS: {
-            const user = action.payload;
-            const newUser = state.entities[user.id];
-            console.log(state);
-            // return Object.assign({}, state.entities.find());
+            const userId = action.payload;
+            const newUser = Object.assign({}, state.entities[userId]);
+            newUser.isActive = !newUser.isActive;
+            const newEntities = { ...state.entities, [userId]: newUser};
+
+            return {
+                ...state,
+                entities: newEntities
+            };
         };
         default: {
             return state;
@@ -27,4 +35,4 @@ export function reducer(state = initialState, action: userActions.Actions) {
 }
 
 
-export const getEntities = (state: State) => state.entities;
+export const getEntities = (state: State) => state.ids.map(id => state.entities[id]);

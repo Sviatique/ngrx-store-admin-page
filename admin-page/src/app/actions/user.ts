@@ -5,9 +5,8 @@ export const TOGGLE_STATUS = '[User] Toggle Status';
 
 export class ToggleStatusAction implements Action {
     readonly type = TOGGLE_STATUS;
-    public payload: User;
 
-    constructor() {}
+    constructor(public payload: number) {}
 }
 
 export type Actions = ToggleStatusAction;

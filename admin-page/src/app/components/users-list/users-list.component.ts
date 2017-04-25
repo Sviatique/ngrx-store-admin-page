@@ -1,27 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
-import { users } from '../../data/users';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
-export class UsersListComponent implements OnInit {
-  public users;
+export class UsersListComponent {
+  @Input() users;
+  @Output() onUserStatusToggle = new EventEmitter<number>();
 
   constructor() { }
 
-  ngOnInit() {
-    this.users = users;
-  }
-
   toggleUserStatus(userId) {
-    const selectedUser = this.users
-    .find(user => {
-      return user.id === userId;
-    });
-
-    selectedUser.isActive = !selectedUser.isActive;
+    this.onUserStatusToggle.emit(userId);
   }
 }
